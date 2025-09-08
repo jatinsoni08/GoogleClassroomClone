@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Classroom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      main::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      main::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 4px;
+      }
+
+      main::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+
+      .NMm5M {
+        fill: currentColor;
+      }
+    </style>
+    <link
+      rel="icon"
+      href="https://www.gstatic.com/classroom/logo_square_rounded.svg"
+      type="image/png"
+    />
+  </head>
+  <body
+    class="bg-[#f8fafd] min-h-screen h-screen font-sans flex flex-col overflow-hidden"
+  >
+    <header class="bg-[#f8fafd] py-3 px-6 flex items-center justify-between">
+      <!-- Left Section: Hamburger + Logo + Text -->
+      <div class="flex items-center space-x-3">
+        <!-- Hamburger Menu (always visible) -->
+        <button id="menuBtn" class="p-2 rounded-full hover:bg-gray-200">
+          <i class="fas fa-bars text-gray-600 text-xl"></i>
+        </button>
+
+        <div class="hidden md:flex items-center space-x-1 select-none">
+          <img
+            src="https://www.gstatic.com/classroom/logo_square_rounded.svg"
+            class="UAJaRc"
+            alt="Google Classroom"
+            data-iml="22344590.900000006"
+            aria-hidden="true"
+            role="presentation"
+            style="width: 30px; height: 30px"
+          />
+        </div>
+        <a
+          href="#"
+          class="text-gray-600 ml-[.625rem] text-2xl hover:text-blue-600 hover:underline"
+          >Classroom</a
+        >
+      </div>
+
+      <!-- Right Section: Icons and Avatar -->
+      <div class="flex items-center space-x-4">
+        <!-- plus Button -->
+        <button
+          class="hidden md:flex p-2 rounded-full hover:bg-gray-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+          aria-label="Plus"
+        >
+          <i class="fas fa-plus text-gray-600 text-xl"></i>
+        </button>
+
+        <!-- App Icon -->
+        <button
+          class="hidden md:flex w-8 h-8 items-center justify-center rounded-full hover:bg-gray-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+          aria-label="Google Apps"
+        >
+          <img
+            src="https://ssl.gstatic.com/gb/images/bar/al-icon.png"
+            alt="app icon"
+            class="w-6 h-6"
+            aria-hidden="true"
+          />
+        </button>
+
+        <!-- User Avatar -->
+        <div
+          class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold text-sm select-none"
+          aria-label="User avatar"
+          role="img"
+        >
+          J
+        </div>
+      </div>
+    </header>
+
+    <!-- Overlay -->
+    <div
+      id="overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"
+    ></div>
+
+    <div class="flex flex-1 h-0 md:flex-row">
+      <!-- Left Sidebar - Hidden on mobile, visible on medium screens and up -->
+      <aside
+        class="hidden md:flex md:w-64 bg-[#f8fafd] flex-col h-full ml-2 mr-3 mt-4"
+      >
+        <!-- Sidebar Navigation - Scrollable -->
+        <nav class="flex-1 overflow-y-auto sidebar-scrollbar pb-4">
+          <ul>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 pl-6 pr-4 py-2 text-blue-800 bg-blue-100 hover:bg-blue-200 rounded-full transition"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  focusable="false"
+                  class="NMm5M text-gray-600"
+                >
+                  <path
+                    d="M12 3L4 9v12h16V9l-8-6zm6 16h-3v-6H9v6H6v-9l6-4.5 6 4.5v9z"
+                  ></path>
+                </svg>
+                <span class="font-medium">Home</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-4 pl-6 pr-4 py-2 text-gray-600 hover:bg-gray-200 rounded-full mt-2"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  focusable="false"
+                  class="NMm5M text-gray-600"
+                >
+                  <path
+                    d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"
+                  ></path>
+                </svg>
+                <span>Calender</span>
+              </a>
+            </li>
+            <li>
+              <div class="relative">
+                <a
+                  href="#"
+                  class="flex items-center gap-4 pl-6 pr-4 py-2 text-gray-600 hover:bg-gray-100 rounded-full mt-6 cursor-pointer enrolled-item"
+                >
+                  <svg
+                    focusable="false"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    class="NMm5M text-gray-600"
+                  >
+                    <path
+                      d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"
+                    ></path>
+                  </svg>
+                  <span>Enrolled</span>
+                  <span class="ml-auto">
+                    <i
+                      class="fas fa-angle-down w-7 h-7 flex items-center justify-center text-gray-700 p-2 transition duration-200 enrolled-arrow"
+                    ></i>
+                  </span>
+                </a>
+
+                <!-- Enrolled Dropdown Content -->
+                <div id="enrolledContent" class="mt-2 hidden">
+                  <a
+                    href="#"
+                    class="flex items-center gap-4 pl-6 pr-4 py-2 text-gray-600 hover:bg-gray-200 rounded-full"
+                  >
+                    <svg
+                      enable-background="new 0 0 24 24"
+                      focusable="false"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      class="NMm5M"
+                    >
+                      <g><rect fill="none" height="24" width="24"></rect></g>
+                      <g>
+                        <g>
+                          <path
+                            d="M20,3H4C2.9,3,2,3.9,2,5v14c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V5 C22,3.9,21.1,3,20,3z M20,19H4V5h16V19z"
+                            fill-rule="evenodd"
+                          ></path>
+                          <polygon
+                            fill-rule="evenodd"
+                            points="19.41,10.42 17.99,9 14.82,12.17 13.41,10.75 12,12.16 14.82,15"
+                          ></polygon>
+                          <rect
+                            fill-rule="evenodd"
+                            height="2"
+                            width="5"
+                            x="5"
+                            y="7"
+                          ></rect>
+                          <rect
+                            fill-rule="evenodd"
+                            height="2"
+                            width="5"
+                            x="5"
+                            y="11"
+                          ></rect>
+                          <rect
+                            fill-rule="evenodd"
+                            height="2"
+                            width="5"
+                            x="5"
+                            y="15"
+                          ></rect>
+                        </g>
+                      </g>
+                    </svg>
+                    <span>To Do</span>
+                  </a>
+                  <a
+                    href="#"
+                    class="flex items-center gap-4 pl-6 pr-4 py-2 text-gray-600 hover:bg-gray-100 rounded-full"
+                  >
+                    <div
+                      class="w-[24px] h-[24px] rounded-full bg-gray-300 flex items-center justify-center text-black font-semibold text-sm select-none"
+                      aria-label="User avatar"
+                      role="img"
+                    >
+                      F
+                    </div>
+                    <span>Frontend BATCH - F</span>
+                  </a>
+
+                  <a
+                    href="#"
+                    class="flex items-center gap-4 pl-6 pr-4 py-2 text-gray-600 hover:bg-gray-100 rounded-full"
+                  >
+                    <div
+                      class="w-[24px] h-[24px] rounded-full bg-gray-300 flex items-center justify-center text-black font-semibold text-sm select-none"
+                      aria-label="User avatar"
+                      role="img"
+                    >
+                      J
+                    </div>
+                    <span>JAVA BATCH - A2</span>
+                  </a>
+
+                  <a
+                    href="#"
+                    class="flex items-center gap-4 pl-6 pr-4 py-2 text-gray-600 hover:bg-gray-100 rounded-full"
+                  >
+                    <div
+                      class="w-[24px] h-[24px] rounded-full bg-[oklch(92.5%_0.084_155.995)] flex items-center justify-center text-[oklch(62.7%_0.194_149.214)] font-semibold text-sm select-none"
+                      aria-label="User avatar"
+                      role="img"
+                    >
+                      F
+                    </div>
+                    <span>Frontend BATCH - G/H</span>
+                  </a>
+
+                  <a
+                    href="#"
+                    class="flex items-center gap-4 pl-6 pr-4 py-2 text-gray-600 hover:bg-gray-100 rounded-full"
+                  >
+                    <div
+                      class="w-[24px] h-[24px] rounded-full bg-gray-300 flex items-center justify-center text-black font-semibold text-sm select-none"
+                      aria-label="User avatar"
+                      role="img"
+                    >
+                      L
+                    </div>
+                    <span>LINUX Glt - 2</span>
+                  </a>
+
+                  <a
+                    href="#"
+                    class="flex items-center gap-4 pl-6 pr-4 py-2 text-gray-600 hover:bg-gray-100 rounded-full"
+                  >
+                    <div
+                      class="w-[24px] h-[24px] rounded-full bg-gray-300 flex items-center justify-center text-black font-semibold text-sm select-none"
+                      aria-label="User avatar"
+                      role="img"
+                    >
+                      C
+                    </div>
+                    <span>C LOGICAL BATCH A-38</span>
+                  </a>
+                </div>
+              </div>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-4 pl-6 pr-4 py-2 text-gray-600 hover:bg-gray-100 rounded-full mt-6"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  focusable="false"
+                  class="NMm5M text-gray-600"
+                >
+                  <path
+                    d="M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM6.24 5h11.52l.83 1H5.42l.82-1zM5 19V8h14v11H5zm11-5.5l-4 4-4-4 1.41-1.41L11 13.67V10h2v3.67l1.59-1.59L16 13.5z"
+                  ></path>
+                </svg>
+                <span>Archived Classes</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-4 pl-6 pr-4 py-2 text-gray-600 hover:bg-gray-100 rounded-full"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  focusable="false"
+                  class="NMm5M text-gray-600"
+                >
+                  <path
+                    d="M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z"
+                  ></path>
+                  <circle cx="12" cy="12" r="3.5"></circle>
+                </svg>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <script>
+        // Function to toggle the Enrolled dropdown
+        function toggleEnrolledDropdown() {
+          const enrolledContent = document.getElementById("enrolledContent");
+          const enrolledArrow = document.querySelector(".enrolled-arrow");
+
+          enrolledContent.classList.toggle("hidden");
+          enrolledArrow.classList.toggle("rotate-180");
+        }
+
+        // Add event listeners to the Enrolled item and arrow
+        document.addEventListener("DOMContentLoaded", function () {
+          const enrolledItem = document.querySelector(".enrolled-item");
+          const enrolledArrow = document.querySelector(".enrolled-arrow");
+
+          if (enrolledItem) {
+            enrolledItem.addEventListener("click", function (e) {
+              e.preventDefault();
+              toggleEnrolledDropdown();
+            });
+          }
+
+          if (enrolledArrow) {
+            enrolledArrow.addEventListener("click", function (e) {
+              e.stopPropagation();
+              toggleEnrolledDropdown();
+            });
+          }
+
+          const menuBtn = document.getElementById("menuBtn");
+          const desktopSidebar = document.querySelector("aside");
+          const mobileSidebar = document.getElementById("mobileSidebar");
+          const overlay = document.getElementById("overlay");
+          const closeBtn = document.getElementById("closeBtn");
+
+          // Check if sidebar state is saved in localStorage
+          const isSidebarCollapsed =
+            localStorage.getItem("sidebarCollapsed") === "true";
+
+          // Set initial state based on saved preference or default
+          if (window.innerWidth >= 768) {
+            if (isSidebarCollapsed) {
+              desktopSidebar.classList.add("hidden");
+              desktopSidebar.classList.remove("md:flex");
+            }
+          }
+
+          // Hamburger menu click handler
+          menuBtn.addEventListener("click", () => {
+            if (window.innerWidth >= 768) {
+              // Toggle desktop sidebar
+              const isCurrentlyHidden =
+                desktopSidebar.classList.contains("hidden");
+
+              if (isCurrentlyHidden) {
+                desktopSidebar.classList.remove("hidden");
+                desktopSidebar.classList.add("md:flex");
+                localStorage.setItem("sidebarCollapsed", "false");
+              } else {
+                desktopSidebar.classList.add("hidden");
+                desktopSidebar.classList.remove("md:flex");
+                localStorage.setItem("sidebarCollapsed", "true");
+              }
+            } else {
+              // Mobile behavior
+              if (mobileSidebar) {
+                mobileSidebar.classList.remove("-translate-x-full");
+                overlay.classList.remove("hidden");
+              }
+            }
+          });
+
+          // Close button handler (for mobile)
+          if (closeBtn) {
+            closeBtn.addEventListener("click", () => {
+              if (mobileSidebar) {
+                mobileSidebar.classList.add("-translate-x-full");
+                overlay.classList.add("hidden");
+              }
+            });
+          }
+
+          // Overlay click handler
+          if (overlay) {
+            overlay.addEventListener("click", () => {
+              if (mobileSidebar) {
+                mobileSidebar.classList.add("-translate-x-full");
+                overlay.classList.add("hidden");
+              }
+            });
+          }
+        });
+      </script>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 p-8 bg-white rounded-3xl overflow-y-auto mb-5 h-full">
+        <ol class="flex flex-wrap gap-4 list-none p-0 m-0 mr-[15rem]">
+          <!-- Single Class Card -->
+          <li class="w-[16rem] bg-white shadow-md rounded-lg overflow-hidden">
+            <!-- Card Header -->
+            <div
+              class="p-4 relative bg-[url('https://gstatic.com/classroom/themes/img_read.jpg')] bg-cover bg-center h-24"
+            >
+              <h1 class="text-white text-xl font-semibold mb-[.25rem]">
+                Frontend BATCH - F
+              </h1>
+              <p class="text-sm text-gray-100">REGex Software</p>
+
+              <!-- Profile Circle -->
+              <div
+                class="absolute bottom-[-16px] right-4 bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold"
+              >
+                R
+              </div>
+            </div>
+
+            <!-- Empty Content Section -->
+            <div class="h-28 p-4"></div>
+
+            <!-- Footer -->
+            <div
+              class="flex justify-between items-center px-4 py-3 border-t text-gray-600 text-xl"
+            >
+              <i class="fas fa-image cursor-pointer"></i>
+              <i class="fas fa-folder cursor-pointer"></i>
+              <i class="fas fa-ellipsis-v cursor-pointer"></i>
+            </div>
+          </li>
+
+          <!-- Another Class Card -->
+          <li class="w-[16rem] bg-white shadow-md rounded-lg overflow-hidden">
+            <div
+              class="p-4 relative bg-[url('https://gstatic.com/classroom/themes/Honors.jpg')] bg-cover bg-center h-24"
+            >
+              <h2 class="text-white text-xl font-semibold mb-[.25rem]">
+                JAVA BATCH - A2
+              </h2>
+              <p class="text-sm text-gray-100">REGex Software</p>
+              <div
+                class="absolute bottom-[-16px] right-4 bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold"
+              >
+                R
+              </div>
+            </div>
+            <div class="h-28 p-4"></div>
+            <div
+              class="flex justify-between items-center px-4 py-3 border-t text-gray-600 text-xl"
+            >
+              <i class="fas fa-image cursor-pointer"></i>
+              <i class="fas fa-folder cursor-pointer"></i>
+              <i class="fas fa-ellipsis-v cursor-pointer"></i>
+            </div>
+          </li>
+
+          <!-- Another Class Card -->
+          <li class="w-[16rem] bg-white shadow-md rounded-lg overflow-hidden">
+            <div
+              class="p-4 relative bg-[url('https://gstatic.com/classroom/themes/img_bookclub.jpg')] bg-cover bg-center h-24"
+            >
+              <h2 class="text-white text-xl font-semibold mb-[.25rem]">
+                FRONTEND BATCH - G/H
+              </h2>
+              <p class="text-sm text-gray-100">REGex Software</p>
+              <div
+                class="absolute bottom-[-16px] right-4 bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold"
+              >
+                R
+              </div>
+            </div>
+            <div class="h-28 p-4"></div>
+            <div
+              class="flex justify-between items-center px-4 py-3 border-t text-gray-600 text-xl"
+            >
+              <i class="fas fa-image cursor-pointer"></i>
+              <i class="fas fa-folder cursor-pointer"></i>
+              <i class="fas fa-ellipsis-v cursor-pointer"></i>
+            </div>
+          </li>
+
+          <!-- Another Class Card -->
+          <li class="w-[16rem] bg-white shadow-md rounded-lg overflow-hidden">
+            <div
+              class="p-4 relative bg-[url('https://gstatic.com/classroom/themes/Honors.jpg')] bg-cover bg-center h-24"
+            >
+              <h2 class="text-white text-xl font-semibold mb-[.25rem]">
+                LINUX Glt - 2
+              </h2>
+              <p class="text-sm text-gray-100">REGex Software</p>
+              <div
+                class="absolute bottom-[-16px] right-4 bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold"
+              >
+                R
+              </div>
+            </div>
+            <div class="h-28 p-4"></div>
+            <div
+              class="flex justify-between items-center px-4 py-3 border-t text-gray-600 text-xl"
+            >
+              <i class="fas fa-image cursor-pointer"></i>
+              <i class="fas fa-folder cursor-pointer"></i>
+              <i class="fas fa-ellipsis-v cursor-pointer"></i>
+            </div>
+          </li>
+
+          <!-- Another Class Card -->
+          <li class="w-[16rem] bg-white shadow-md rounded-lg overflow-hidden">
+            <div
+              class="p-4 relative bg-[url('https://gstatic.com/classroom/themes/img_read.jpg')] bg-cover bg-center h-24"
+            >
+              <h2 class="text-white text-xl font-semibold mb-[.25rem]">
+                C LOGICAL A-38
+              </h2>
+              <p class="text-sm text-gray-100">REGex Software</p>
+              <div
+                class="absolute bottom-[-16px] right-4 bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold"
+              >
+                R
+              </div>
+            </div>
+            <div class="h-28 p-4"></div>
+            <div
+              class="flex justify-between items-center px-4 py-3 border-t text-gray-600 text-xl"
+            >
+              <i class="fas fa-image cursor-pointer"></i>
+              <i class="fas fa-folder cursor-pointer"></i>
+              <i class="fas fa-ellipsis-v cursor-pointer"></i>
+            </div>
+          </li>
+        </ol>
+      </main>
+
+      <!-- FontAwesome -->
+      <script
+        src="https://kit.fontawesome.com/64d58efce2.js"
+        crossorigin="anonymous"
+      ></script>
+    </div>
+  </body>
+</html>
